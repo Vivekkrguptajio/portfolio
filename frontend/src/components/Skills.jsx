@@ -1,46 +1,7 @@
 import React from 'react';
-import { Code2, Globe, Server, Database, Wrench, Rocket } from 'lucide-react';
+import { skillCategories } from '../data/skillsData';
 
 const Skills = () => {
-    const skillCategories = [
-        {
-            icon: Code2,
-            title: 'Languages',
-            iconBg: 'bg-blue-500',
-            skills: ['Java', 'C++', 'JavaScript', 'TypeScript']
-        },
-        {
-            icon: Globe,
-            title: 'Frontend',
-            iconBg: 'bg-purple-500',
-            skills: ['HTML5', 'CSS3', 'React', 'Tailwind CSS']
-        },
-        {
-            icon: Server,
-            title: 'Backend',
-            iconBg: 'bg-green-500',
-            skills: ['Node.js', 'Express.js', 'REST APIs', 'Spring Boot']
-        },
-        {
-            icon: Database,
-            title: 'Database',
-            iconBg: 'bg-orange-500',
-            skills: ['MongoDB', 'MySQL', 'PostgreSQL', 'Firebase']
-        },
-        {
-            icon: Wrench,
-            title: 'Tools',
-            iconBg: 'bg-pink-500',
-            skills: ['Git', 'GitHub', 'Postman', 'VS Code']
-        },
-        {
-            icon: Rocket,
-            title: 'Deployment',
-            iconBg: 'bg-violet-500',
-            skills: ['Vercel', 'Render', 'Netlify', 'Heroku']
-        }
-    ];
-
     return (
         <section id="skills" className="min-h-screen bg-[#050614] py-20 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
