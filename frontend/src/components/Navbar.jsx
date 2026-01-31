@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Github, Linkedin } from 'lucide-react';
+import { contactInfo } from '../data/contactData';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const navLinks = ['About', 'Skills', 'Projects', 'Experience', 'Contact'];
+    const navLinks = ['About', 'Skills', 'Projects', 'Experience'];
 
     return (
         <>
@@ -31,9 +32,32 @@ const Navbar = () => {
                                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-indigo-500 group-hover:w-full transition-all duration-300"></span>
                                 </a>
                             ))}
-                            <button className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-5 py-2 rounded-full text-sm font-medium hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105">
-                                Let's Talk
-                            </button>
+                            <a
+                                href="#contact"
+                                className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-5 py-2 rounded-full text-sm font-medium hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105"
+                            >
+                                Contact
+                            </a>
+                            <div className="flex items-center gap-4">
+                                <a
+                                    href={contactInfo.github}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-gray-300 hover:text-white transition-colors hover:scale-110 duration-300"
+                                    aria-label="GitHub"
+                                >
+                                    <Github size={20} />
+                                </a>
+                                <a
+                                    href={contactInfo.linkedin}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-gray-300 hover:text-blue-400 transition-colors hover:scale-110 duration-300"
+                                    aria-label="LinkedIn"
+                                >
+                                    <Linkedin size={20} />
+                                </a>
+                            </div>
                         </div>
 
                         {/* Mobile Menu Button */}
@@ -71,12 +95,33 @@ const Navbar = () => {
                                     {link}
                                 </a>
                             ))}
-                            <button
+                            <a
+                                href="#contact"
                                 onClick={() => setIsOpen(false)}
-                                className="w-full mt-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-5 py-3 rounded-lg font-medium hover:shadow-lg hover:shadow-purple-500/50 transition-all"
+                                className="block w-full text-center mt-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-5 py-3 rounded-lg font-medium hover:shadow-lg hover:shadow-purple-500/50 transition-all"
                             >
-                                Let's Talk
-                            </button>
+                                Contact
+                            </a>
+                            <div className="flex items-center justify-center gap-6 mt-6">
+                                <a
+                                    href={contactInfo.github}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="p-2 bg-white/5 rounded-full text-gray-300 hover:text-white hover:bg-white/10 transition-all"
+                                    aria-label="GitHub"
+                                >
+                                    <Github size={24} />
+                                </a>
+                                <a
+                                    href={contactInfo.linkedin}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="p-2 bg-white/5 rounded-full text-gray-300 hover:text-blue-400 hover:bg-white/10 transition-all"
+                                    aria-label="LinkedIn"
+                                >
+                                    <Linkedin size={24} />
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

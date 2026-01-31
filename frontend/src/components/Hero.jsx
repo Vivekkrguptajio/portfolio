@@ -17,7 +17,7 @@ const Hero = () => {
 
             {/* Subheading & Description */}
             <h2 className="text-lg md:text-2xl text-gray-400 mb-4 font-light max-w-lg md:max-w-none mx-auto">
-                Final Year CSE Student | Java Backend & MERN Stack Developer
+                Final Year CSE Student | MERN Stack Developer
             </h2>
             <p className="max-w-xl text-gray-500 mb-8 md:mb-10 text-base md:text-lg mx-auto">
                 Building scalable, real-world web applications with clean backend architecture.

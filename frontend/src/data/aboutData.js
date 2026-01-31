@@ -5,7 +5,7 @@ export const infoCards = [
         icon: GraduationCap,
         title: 'Education',
         iconBg: 'bg-blue-500',
-        description: 'B.Tech in Computer Science & Engineering (2021-2025) from XYZ University with 8.5 CGPA'
+        description: 'B.Tech in Computer Science & Engineering (2022-2026) from Governement Engineering College, Palamu with 7.5 CGPA'
     },
     {
         icon: Code2,

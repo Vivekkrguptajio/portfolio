@@ -1,5 +1,5 @@
 import React from 'react';
-import { FolderOpen, Github, ExternalLink } from 'lucide-react';
+import { Github, ExternalLink } from 'lucide-react';
 import { projects } from '../data/projectsData';
 
 const Projects = () => {
@@ -25,59 +25,63 @@ const Projects = () => {
                 </p>
 
                 {/* Projects Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                     {projects.map((project, index) => (
                         <div
                             key={index}
-                            className="bg-[#0f0f1f]/80 backdrop-blur-sm border border-white/5 rounded-2xl p-6 hover:border-purple-500/30 transition-all duration-300 group"
+                            className="bg-[#0f0f1f]/80 backdrop-blur-sm border border-white/5 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all duration-300 group max-w-sm mx-auto"
                         >
-                            {/* Header */}
-                            <div className="flex items-start justify-between mb-4">
-                                <div className="flex items-center gap-3">
-                                    <div className="p-3 bg-blue-500 rounded-xl">
-                                        <FolderOpen className="w-5 h-5 text-white" />
+                            {/* Project Image */}
+                            <div className="h-64 overflow-hidden relative">
+                                <img
+                                    src={project.img}
+                                    alt={project.title}
+                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f1f] to-transparent opacity-60"></div>
+                            </div>
+
+                            <div className="p-6">
+                                {/* Header */}
+                                <div className="flex items-start justify-between mb-4">
+                                    <h3 className="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">
+                                        {project.title}
+                                    </h3>
+                                    <div className="flex gap-2">
+                                        <a
+                                            href={project.github}
+                                            className="p-1.5 bg-white/5 hover:bg-white/10 rounded-lg transition-colors"
+                                            aria-label="GitHub"
+                                        >
+                                            <Github className="w-4 h-4 text-gray-400 hover:text-white" />
+                                        </a>
+                                        <a
+                                            href={project.live}
+                                            className="p-1.5 bg-white/5 hover:bg-white/10 rounded-lg transition-colors"
+                                            aria-label="Live Demo"
+                                        >
+                                            <ExternalLink className="w-4 h-4 text-gray-400 hover:text-white" />
+                                        </a>
                                     </div>
-                                    <h3 className="text-xl font-semibold text-white">{project.title}</h3>
                                 </div>
-                                <div className="flex gap-2">
-                                    <a
-                                        href={project.github}
-                                        className="p-2 hover:bg-white/5 rounded-lg transition-colors"
-                                        aria-label="GitHub"
-                                    >
-                                        <Github className="w-4 h-4 text-gray-400 hover:text-white" />
-                                    </a>
-                                    <a
-                                        href={project.live}
-                                        className="p-2 hover:bg-white/5 rounded-lg transition-colors"
-                                        aria-label="Live Demo"
-                                    >
-                                        <ExternalLink className="w-4 h-4 text-gray-400 hover:text-white" />
-                                    </a>
+
+                                {/* Description */}
+                                <p className="text-sm text-gray-400 mb-6 leading-relaxed line-clamp-3">
+                                    {project.description}
+                                </p>
+
+                                {/* Tech Stack Pills */}
+                                <div className="flex flex-wrap gap-2">
+                                    {project.techStack.map((tech, idx) => (
+                                        <span
+                                            key={idx}
+                                            className="px-3 py-1 bg-[#1a1a2e] border border-white/5 rounded-full text-xs text-purple-300 hover:bg-purple-500/10 hover:border-purple-500/30 transition-colors"
+                                        >
+                                            {tech}
+                                        </span>
+                                    ))}
                                 </div>
                             </div>
-
-                            {/* Description */}
-                            <p className="text-sm text-gray-400 mb-4 leading-relaxed">
-                                {project.description}
-                            </p>
-
-                            {/* Features */}
-                            <div className="flex flex-wrap gap-2 mb-4">
-                                {project.features.map((feature, idx) => (
-                                    <span
-                                        key={idx}
-                                        className="px-3 py-1 bg-purple-500/10 border border-purple-500/20 rounded-lg text-xs text-purple-300"
-                                    >
-                                        {feature}
-                                    </span>
-                                ))}
-                            </div>
-
-                            {/* Tech Stack */}
-                            <p className="text-xs text-gray-500">
-                                {project.techStack}
-                            </p>
                         </div>
                     ))}
                 </div>
