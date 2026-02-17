@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Save, Upload, Link } from 'lucide-react';
+import API_BASE_URL from '../config';
 
 const AddProject = () => {
     const navigate = useNavigate();
@@ -60,7 +61,7 @@ const AddProject = () => {
                 submitData.append('image', formData.image);
             }
 
-            const response = await fetch('http://localhost:3000/api/projects', {
+            const response = await fetch(`${API_BASE_URL}/api/projects`, {
                 method: 'POST',
                 // No Content-Type header needed, browser sets it with boundary for FormData
                 body: submitData

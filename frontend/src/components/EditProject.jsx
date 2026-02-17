@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Save, Upload, Link } from 'lucide-react';
+import API_BASE_URL from '../config';
 
 const EditProject = () => {
     const { id } = useParams();
@@ -25,7 +26,7 @@ const EditProject = () => {
     useEffect(() => {
         const fetchProject = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/projects`);
+                const response = await fetch(`${API_BASE_URL}/api/projects`);
                 // Ideally backend should have /api/projects/:id GET endpoint, but simplistic list fetch works for now
                 // Wait, server.js doesn't hav GET by ID. I added PUT/DELETE. 
                 // I should add GET /:id or just filter from all. Filtering is fine for small portfolio.
@@ -100,7 +101,7 @@ const EditProject = () => {
                 submitData.append('image', formData.image);
             }
 
-            const response = await fetch(`http://localhost:3000/api/projects/${id}`, {
+            const response = await fetch(`${API_BASE_URL}/api/projects/${id}`, {
                 method: 'PUT',
                 body: submitData
             });

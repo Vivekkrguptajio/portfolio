@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Edit2, Trash2, Plus, ExternalLink, ArrowLeft } from 'lucide-react';
+import API_BASE_URL from '../config';
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ const AdminDashboard = () => {
 
     const fetchProjects = async () => {
         try {
-            const response = await fetch('http://localhost:3000/api/projects');
+            const response = await fetch(`${API_BASE_URL}/api/projects`);
             if (response.ok) {
                 const data = await response.json();
                 setProjects(data);
@@ -28,7 +29,7 @@ const AdminDashboard = () => {
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this project?')) {
             try {
-                const response = await fetch(`http://localhost:3000/api/projects/${id}`, {
+                const response = await fetch(`${API_BASE_URL}/api/projects/${id}`, {
                     method: 'DELETE'
                 });
                 if (response.ok) {
