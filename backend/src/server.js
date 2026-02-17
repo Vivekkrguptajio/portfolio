@@ -13,17 +13,6 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Request Logger
-app.use((req, res, next) => {
-    console.log(`📝 ${req.method} ${req.originalUrl}`);
-    next();
-});
-
-// Root Route (Health Check)
-app.get('/', (req, res) => {
-    res.send('API is running...');
-});
-
 // Ensure uploads directory exists
 const uploadDir = 'uploads';
 if (!fs.existsSync(uploadDir)) {
@@ -106,7 +95,12 @@ app.delete('/api/projects/:id', async (req, res) => {
         // Optionally delete image file if it exists in uploads/
         if (project.image && project.image.includes('/uploads/')) {
             const filename = project.image.split('/uploads/')[1];
-            // path.join('uploads', filename) resolves relative to process.cwd() (backend root)
+            const filePath = path.join(__dirname, 'uploads', filename); // Adjust path logic if needed
+            // Actually, uploads is at root in this setup? 
+            // current CWD is backend/. uploads is backend/uploads.
+            // server.js is in backend/src. So uploads is ../uploads relative to server.js?
+            // Wait, in line 28: cb(null, 'uploads/'). This is relative to where node process runs (backend root).
+            // So path to file is just 'uploads/filename'.
             const fsPath = path.join('uploads', filename);
             if (fs.existsSync(fsPath)) {
                 fs.unlinkSync(fsPath);

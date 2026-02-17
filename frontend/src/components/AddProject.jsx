@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Save, Upload, Link, LayoutDashboard } from 'lucide-react';
+import { ArrowLeft, Save, Upload, Link } from 'lucide-react';
 
 const AddProject = () => {
     const navigate = useNavigate();
@@ -84,22 +84,13 @@ const AddProject = () => {
     return (
         <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-[#050614] transition-colors duration-300">
             <div className="max-w-2xl mx-auto">
-                <div className="flex justify-between items-center mb-6">
-                    <button
-                        onClick={() => navigate('/')}
-                        className="flex items-center text-gray-600 dark:text-gray-400 hover:text-purple-600 transition-colors"
-                    >
-                        <ArrowLeft size={20} className="mr-2" />
-                        Back to Portfolio
-                    </button>
-                    <button
-                        onClick={() => navigate('/admin')}
-                        className="flex items-center text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium transition-colors"
-                    >
-                        <LayoutDashboard size={20} className="mr-2" />
-                        Admin Dashboard
-                    </button>
-                </div>
+                <button
+                    onClick={() => navigate('/')}
+                    className="flex items-center text-gray-600 dark:text-gray-400 hover:text-purple-600 mb-6 transition-colors"
+                >
+                    <ArrowLeft size={20} className="mr-2" />
+                    Back to Portfolio
+                </button>
 
                 <div className="bg-white dark:bg-[#0a0a1a] rounded-2xl shadow-xl p-8 border border-gray-200 dark:border-white/5">
                     <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Add New Project</h1>

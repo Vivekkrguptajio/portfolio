@@ -90,19 +90,21 @@ const Projects = () => {
                                                 href={project.github}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="p-1.5 bg-white/5 hover:bg-white/10 rounded-lg transition-colors"
+                                                className="p-2 bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 rounded-lg transition-all hover:scale-110"
                                                 aria-label="GitHub"
+                                                title="View Code"
                                             >
-                                                <Github className="w-4 h-4 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white" />
+                                                <Github className="w-5 h-5 text-gray-700 dark:text-gray-300" />
                                             </a>
                                             <a
                                                 href={project.live}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="p-1.5 bg-white/5 hover:bg-white/10 rounded-lg transition-colors"
+                                                className="p-2 bg-purple-100 dark:bg-purple-900/40 hover:bg-purple-200 dark:hover:bg-purple-900/60 rounded-lg transition-all hover:scale-110 shadow-lg shadow-purple-500/20 animate-pulse"
                                                 aria-label="Live Demo"
+                                                title="Live Demo"
                                             >
-                                                <ExternalLink className="w-4 h-4 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white" />
+                                                <ExternalLink className="w-5 h-5 text-purple-600 dark:text-purple-300" />
                                             </a>
                                         </div>
                                     </div>
