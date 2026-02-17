@@ -46,7 +46,21 @@ const Project = require('./models/Project');
 app.get('/api/projects', async (req, res) => {
     try {
         const projects = await Project.find().sort({ isFeatured: -1, createdAt: -1 });
-        res.json(projects);
+
+        // Dynamically update image URLs to match current server host
+        const projectsWithDynamicUrls = projects.map(project => {
+            const projectObj = project.toObject();
+            if (projectObj.image && projectObj.image.includes('/uploads/')) {
+                // If it's a full URL (old data), strip domain to get relative path
+                // If it's already relative (new data), keep it
+                // Then prepend current protocol and host
+                const relativePath = projectObj.image.substring(projectObj.image.indexOf('/uploads/'));
+                projectObj.image = `${req.protocol}://${req.get('host')}${relativePath}`;
+            }
+            return projectObj;
+        });
+
+        res.json(projectsWithDynamicUrls);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -60,8 +74,8 @@ app.post('/api/projects', upload.single('imageFile'), async (req, res) => {
         // Determine image source: uploaded file or URL string
         let projectImage = image;
         if (req.file) {
-            // Construct URL for uploaded file
-            projectImage = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+            // Store RELATIVE path for uploaded files
+            projectImage = `/uploads/${req.file.filename}`;
         }
 
         // Validation
@@ -80,7 +94,14 @@ app.post('/api/projects', upload.single('imageFile'), async (req, res) => {
         });
 
         const savedProject = await newProject.save();
-        res.status(201).json(savedProject);
+
+        // Return with full URL for immediate frontend display
+        const responseProject = savedProject.toObject();
+        if (responseProject.image.startsWith('/uploads/')) {
+            responseProject.image = `${req.protocol}://${req.get('host')}${responseProject.image}`;
+        }
+
+        res.status(201).json(responseProject);
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
@@ -94,13 +115,7 @@ app.delete('/api/projects/:id', async (req, res) => {
 
         // Optionally delete image file if it exists in uploads/
         if (project.image && project.image.includes('/uploads/')) {
-            const filename = project.image.split('/uploads/')[1];
-            const filePath = path.join(__dirname, 'uploads', filename); // Adjust path logic if needed
-            // Actually, uploads is at root in this setup? 
-            // current CWD is backend/. uploads is backend/uploads.
-            // server.js is in backend/src. So uploads is ../uploads relative to server.js?
-            // Wait, in line 28: cb(null, 'uploads/'). This is relative to where node process runs (backend root).
-            // So path to file is just 'uploads/filename'.
+            const filename = project.image.split('/uploads/')[1]; // This works for both relative and absolute if we look for /uploads/
             const fsPath = path.join('uploads', filename);
             if (fs.existsSync(fsPath)) {
                 fs.unlinkSync(fsPath);
@@ -121,7 +136,8 @@ app.put('/api/projects/:id', upload.single('imageFile'), async (req, res) => {
         let projectImage = image;
 
         if (req.file) {
-            projectImage = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+            // Store RELATIVE path
+            projectImage = `/uploads/${req.file.filename}`;
         }
 
         // Prepare update object
@@ -142,7 +158,13 @@ app.put('/api/projects/:id', upload.single('imageFile'), async (req, res) => {
         const updatedProject = await Project.findByIdAndUpdate(req.params.id, updateData, { new: true });
         if (!updatedProject) return res.status(404).json({ message: 'Project not found' });
 
-        res.json(updatedProject);
+        // Return with full URL
+        const responseProject = updatedProject.toObject();
+        if (responseProject.image && responseProject.image.startsWith('/uploads/')) {
+            responseProject.image = `${req.protocol}://${req.get('host')}${responseProject.image}`;
+        }
+
+        res.json(responseProject);
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
