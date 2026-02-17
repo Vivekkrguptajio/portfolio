@@ -22,5 +22,13 @@ export const projects = [
         img: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1925&auto=format&fit=crop&ixlib=rb-4.0.3',
         github: '#',
         live: '#'
+    },
+    {
+        title: 'Project In Progress',
+        description: 'A new innovative project is currently under development. Stay tuned for updates!',
+        techStack: ['TBD', 'Coming Soon'],
+        img: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3',
+        github: '#',
+        live: '#'
     }
 ];

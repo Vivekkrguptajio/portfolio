@@ -5,18 +5,18 @@ export const infoCards = [
         icon: GraduationCap,
         title: 'Education',
         iconBg: 'bg-blue-500',
-        description: 'B.Tech in Computer Science & Engineering (2022-2026) from Governement Engineering College, Palamu with 7.5 CGPA'
+        description: 'B.Tech in CSE (2022-Present) from GEC Palamu. CPI: 7.52 (till 5th sem)'
     },
     {
         icon: Code2,
-        title: 'Specialization',
+        title: 'Domain',
         iconBg: 'bg-purple-500',
-        description: 'Backend Development with Java & Spring Boot, Full-stack with MERN Stack'
+        description: 'AI/ML, Deep Learning, Computer Vision, & Full Stack Development'
     },
     {
         icon: Target,
-        title: 'Focus',
-        iconBg: 'bg-blue-500',
-        description: 'Building scalable applications, clean code architecture, and solving complex problems'
+        title: 'Target',
+        iconBg: 'bg-green-500',
+        description: 'Developing scalable Neural Networks, MLOps pipelines, and solving real-world AI problems'
     }
 ];

@@ -4,40 +4,40 @@ export const profiles = [
     {
         icon: Github,
         name: 'GitHub',
-        username: '@yourusername',
+        username: '@Vivekkrguptajio',
         stat: '50+ Repositories',
-        link: 'https://github.com/yourusername',
+        link: 'https://github.com/Vivekkrguptajio',
         iconBg: 'bg-gray-700'
     },
     {
         icon: Linkedin,
         name: 'LinkedIn',
-        username: '/in/yourusername',
+        username: '/in/vivek369',
         stat: '500+ Connections',
-        link: 'https://linkedin.com/in/yourusername',
+        link: 'https://linkedin.com/in/vivek369',
         iconBg: 'bg-blue-600'
     },
     {
         icon: Code2,
         name: 'LeetCode',
-        username: '@yourusername',
+        username: '@gkumvivek',
         stat: '300+ Problems',
-        link: 'https://leetcode.com/yourusername',
+        link: 'https://leetcode.com/gkumvivek',
         iconBg: 'bg-orange-500'
     },
     {
         icon: FileCode,
         name: 'GeeksforGeeks',
-        username: '@yourusername',
+        username: '@vivek369',
         stat: '200+ Problems',
-        link: 'https://auth.geeksforgeeks.org/user/yourusername',
+        link: 'https://auth.geeksforgeeks.org/user/vivek369',
         iconBg: 'bg-green-600'
     }
 ];
 
 export const contactInfo = {
-    email: 'your.email@example.com',
-    location: 'City, State, India',
+    email: 'vivekkrguptajio@gmail.com',
+    location: 'Dhanbad, Jharkhand, India',
     github: 'https://github.com/yourusername',
     linkedin: 'https://linkedin.com/in/yourusername'
 };

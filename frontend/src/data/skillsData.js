@@ -1,40 +1,52 @@
-import { Code2, Globe, Server, Database, Wrench, Rocket } from 'lucide-react';
+import { Code2, Brain, BarChart, Eye, Database, Cloud, Layers, Calculator } from 'lucide-react';
 
 export const skillCategories = [
     {
         icon: Code2,
         title: 'Languages',
         iconBg: 'bg-blue-500',
-        skills: ['Java', 'C++', 'JavaScript', 'TypeScript']
+        skills: ['Python', 'Java', 'JavaScript (ES6+)', 'TypeScript', 'C', 'C++']
     },
     {
-        icon: Globe,
-        title: 'Frontend',
+        icon: Brain,
+        title: 'Deep Learning & AI',
         iconBg: 'bg-purple-500',
-        skills: ['HTML5', 'CSS3', 'React', 'Tailwind CSS']
+        skills: ['TensorFlow (Keras)', 'PyTorch', 'DenseNet', 'CNN', 'Supervised Learning', 'Unsupervised Learning']
     },
     {
-        icon: Server,
-        title: 'Backend',
+        icon: BarChart,
+        title: 'Machine Learning',
         iconBg: 'bg-green-500',
-        skills: ['Node.js', 'Express.js', 'REST APIs', 'Spring Boot']
+        skills: ['Logistic Regression', 'Random Forest', 'SVM', 'XGBoost', 'Feature Engineering', 'Model Evaluation']
+    },
+    {
+        icon: Eye,
+        title: 'Computer Vision',
+        iconBg: 'bg-orange-500',
+        skills: ['Image Classification', 'Image Preprocessing', 'OpenCV', 'NumPy', 'Scikit-learn']
     },
     {
         icon: Database,
-        title: 'Database',
-        iconBg: 'bg-orange-500',
-        skills: ['MongoDB', 'MySQL', 'PostgreSQL', 'Firebase']
-    },
-    {
-        icon: Wrench,
-        title: 'Tools',
+        title: 'Data Engineering',
         iconBg: 'bg-pink-500',
-        skills: ['Git', 'GitHub', 'Postman', 'VS Code']
+        skills: ['Data Pipelines', 'Data Cleaning', 'EDA', 'Dataset Management']
     },
     {
-        icon: Rocket,
-        title: 'Deployment',
+        icon: Cloud,
+        title: 'Cloud & DevOps',
         iconBg: 'bg-violet-500',
-        skills: ['Vercel', 'Render', 'Netlify', 'Heroku']
+        skills: ['AWS (Lambda, S3)', 'Docker', 'CI/CD (GitHub Actions)', 'Git', 'Model Deployment']
+    },
+    {
+        icon: Layers,
+        title: 'Full Stack & Frameworks',
+        iconBg: 'bg-indigo-500',
+        skills: ['React.js', 'Next.js', 'Node.js', 'Express.js', 'Spring Boot', 'MongoDB', 'RESTful APIs']
+    },
+    {
+        icon: Calculator,
+        title: 'Fundamentals',
+        iconBg: 'bg-red-500',
+        skills: ['Linear Algebra', 'Probability', 'Statistics', 'DSA', 'OOP']
     }
 ];

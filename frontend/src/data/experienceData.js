@@ -1,35 +1,52 @@
-import { Briefcase, Award, Shield } from 'lucide-react';
+import { Briefcase, Award, GraduationCap, Code } from 'lucide-react';
 
 export const experiences = [
     {
         icon: Briefcase,
         iconBg: 'bg-blue-500',
-        title: 'Software Development Intern',
-        company: 'Tech Company XYZ',
-        date: 'Jun 2024 - Aug 2024',
-        description: 'Developed REST APIs using Node.js and Express, collaborated on frontend features with React, and improved application performance by 30%.'
+        title: 'Python & Machine Learning Intern',
+        company: 'YBI Foundation',
+        date: 'June - July 2025',
+        description: 'Built Heart Disease Prediction System using Clinical Data. Applied Logistic Regression and Random Forest models. Performed feature scaling, evaluation, and visualization.'
     },
     {
-        icon: Award,
-        iconBg: 'bg-yellow-500',
-        title: 'Winner - Smart India Hackathon',
-        company: 'National Level',
-        date: 'Dec 2023',
-        description: 'Led a team of 6 to build an AI-powered solution for document verification. Won among 500+ participating teams.'
+        icon: Briefcase,
+        iconBg: 'bg-blue-500',
+        title: 'Python & Machine Learning Intern',
+        company: 'YBI Foundation',
+        date: 'June 2024',
+        description: 'Developed Content-Based Movie Recommendation System. Implemented TF-IDF vectorization and cosine similarity. Performed data cleaning on MovieLens dataset.'
     },
     {
-        icon: Shield,
+        icon: GraduationCap,
         iconBg: 'bg-green-500',
-        title: 'AWS Cloud Practitioner',
-        company: 'Amazon Web Services',
-        date: '2024',
-        description: 'Certified in cloud computing fundamentals, AWS services, and cloud architecture best practices.'
+        title: 'B.Tech in CSE',
+        company: 'Government Engineering College Palamu',
+        date: '2022 - Present',
+        description: 'Current CPI: 7.52 (till 5th sem). Focusing on Data Structures, Algorithms, AI/ML, and Full Stack Development.'
+    },
+    {
+        icon: GraduationCap,
+        iconBg: 'bg-green-500',
+        title: 'Class XII',
+        company: 'St. Thomas High School Topchanchi',
+        date: '2018 - 2020',
+        description: 'Completed Higher Secondary Education with 60.3%.'
+    },
+    {
+        icon: GraduationCap,
+        iconBg: 'bg-green-500',
+        title: 'Class X',
+        company: 'Kendriya Vidyalaya Gomoh',
+        date: '2017 - 2018',
+        description: 'Completed Secondary Education with 86.7%.'
     }
 ];
 
 export const highlights = [
-    '300+ Problems solved on LeetCode',
-    '5★ Rating on HackerRank (Java)',
-    'Open Source Contributor',
-    'Technical Blog Writer'
+    '1st Position - Quiz Competition (National Technology Day 2025)',
+    'SIH 2025 Participation',
+    'IDEA TRIBE 2025 Candidate',
+    'LeetCode: 300+ Problems Solved',
+    'GeeksforGeeks: 200+ Problems Solved'
 ];
