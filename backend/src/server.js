@@ -32,7 +32,22 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage: storage });
+const fileFilter = (req, file, cb) => {
+    const allowedTypes = /jpeg|jpg|png/;
+    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = allowedTypes.test(file.mimetype);
+
+    if (extname && mimetype) {
+        cb(null, true);
+    } else {
+        cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+    }
+};
+
+const upload = multer({
+    storage: storage,
+    fileFilter: fileFilter
+});
 
 // Database Connection
 mongoose.connect(process.env.MONGO_URL)
@@ -168,6 +183,16 @@ app.put('/api/projects/:id', upload.single('imageFile'), async (req, res) => {
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
+});
+
+// Global Error Handler
+app.use((err, req, res, next) => {
+    if (err instanceof multer.MulterError) {
+        return res.status(400).json({ message: err.message });
+    } else if (err) {
+        return res.status(400).json({ message: err.message });
+    }
+    next();
 });
 
 // Start Server

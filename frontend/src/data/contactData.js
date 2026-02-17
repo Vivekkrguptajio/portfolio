@@ -14,7 +14,7 @@ export const profiles = [
         name: 'LinkedIn',
         username: '/in/vivek369',
         stat: '500+ Connections',
-        link: 'https://linkedin.com/in/vivek369',
+        link: 'https://www.linkedin.com/in/vivek369',
         iconBg: 'bg-blue-600'
     },
     {
@@ -38,6 +38,6 @@ export const profiles = [
 export const contactInfo = {
     email: 'vivekkrguptajio@gmail.com',
     location: 'Dhanbad, Jharkhand, India',
-    github: 'https://github.com/yourusername',
-    linkedin: 'https://linkedin.com/in/yourusername'
+    github: 'https://github.com/Vivekkrguptajio',
+    linkedin: 'https://www.linkedin.com/in/vivek369'
 };

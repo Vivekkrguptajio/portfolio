@@ -27,7 +27,7 @@ const Footer = () => {
                     {/* Right: Social Links */}
                     <div className="flex gap-3">
                         <a
-                            href="https://github.com"
+                            href="https://github.com/Vivekkrguptajio"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="p-2 bg-gray-200 dark:bg-white/5 rounded-lg hover:bg-gray-300 dark:hover:bg-white/10 transition-colors"
@@ -36,7 +36,7 @@ const Footer = () => {
                             <Github className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white" />
                         </a>
                         <a
-                            href="https://linkedin.com"
+                            href="https://www.linkedin.com/in/vivek369"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="p-2 bg-gray-200 dark:bg-white/5 rounded-lg hover:bg-gray-300 dark:hover:bg-white/10 transition-colors"
