@@ -1,0 +1,190 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+/* ═══════════════════════════════════════════════════════
+   Design System — Deep Charcoal + Neon Accents
+   ═══════════════════════════════════════════════════════ */
+
+:root {
+    /* Backgrounds */
+    --bg-primary: #060918;
+    --bg-secondary: #0c0f24;
+    --bg-tertiary: #111633;
+    --bg-glass: rgba(12, 15, 36, 0.6);
+
+    /* Accent Colors */
+    --accent-cyan: #00f0ff;
+    --accent-violet: #a855f7;
+    --accent-blue: #3b82f6;
+
+    /* Text */
+    --text-primary: #e8eaed;
+    --text-secondary: #9ba3bf;
+    --text-muted: #4a5278;
+
+    /* Borders */
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --border-glass: rgba(255, 255, 255, 0.08);
+    --border-accent: rgba(0, 240, 255, 0.2);
+
+    /* Gradients */
+    --gradient-accent: linear-gradient(135deg, #00f0ff, #a855f7);
+    --gradient-card: linear-gradient(135deg, rgba(0, 240, 255, 0.05), rgba(168, 85, 247, 0.05));
+}
+
+/* ═══════════════════════════════════════════════════════
+   Base Typography
+   ═══════════════════════════════════════════════════════ */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+/* ═══════════════════════════════════════════════════════
+   Custom Cursor (desktop only)
+   ═══════════════════════════════════════════════════════ */
+
+@media (pointer: fine) {
+    body {
+        cursor: none;
+    }
+    a, button, [role="button"] {
+        cursor: none;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════
+   Custom Scrollbar
+   ═══════════════════════════════════════════════════════ */
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--text-muted);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-cyan);
+}
+
+/* ═══════════════════════════════════════════════════════
+   Glassmorphism Utility
+   ═══════════════════════════════════════════════════════ */
+
+.glass {
+    background: rgba(12, 15, 36, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-strong {
+    background: rgba(12, 15, 36, 0.88);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* ═══════════════════════════════════════════════════════
+   Neumorphism Utility
+   ═══════════════════════════════════════════════════════ */
+
+.neu-inset {
+    box-shadow:
+        inset 2px 2px 6px rgba(0, 0, 0, 0.4),
+        inset -2px -2px 6px rgba(255, 255, 255, 0.03);
+}
+
+.neu-raised {
+    box-shadow:
+        4px 4px 12px rgba(0, 0, 0, 0.5),
+        -2px -2px 8px rgba(255, 255, 255, 0.03);
+}
+
+/* ═══════════════════════════════════════════════════════
+   Glow Effects
+   ═══════════════════════════════════════════════════════ */
+
+.glow-cyan {
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.15), 0 0 60px rgba(0, 240, 255, 0.05);
+}
+
+.glow-violet {
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.15), 0 0 60px rgba(168, 85, 247, 0.05);
+}
+
+.glow-cyan-strong {
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.3), 0 0 80px rgba(0, 240, 255, 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════
+   Text Gradient Utility
+   ═══════════════════════════════════════════════════════ */
+
+.text-gradient {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ═══════════════════════════════════════════════════════
+   Neon Border Animation
+   ═══════════════════════════════════════════════════════ */
+
+.neon-border {
+    position: relative;
+}
+
+.neon-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.3), transparent 40%, rgba(168, 85, 247, 0.3));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.neon-border:hover::before {
+    opacity: 1;
+}
+
+/* ═══════════════════════════════════════════════════════
+   Selection Style
+   ═══════════════════════════════════════════════════════ */
+
+::selection {
+    background: rgba(0, 240, 255, 0.2);
+    color: #fff;
+}
