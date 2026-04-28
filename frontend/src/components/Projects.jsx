@@ -165,6 +165,16 @@ const ProjectCard = ({ project, index }) => {
 const Projects = () => {
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [activeFilter, setActiveFilter] = useState('All');
+
+    const categories = [
+        'All',
+        'Django (Python Backend)',
+        'Spring Boot (Java)',
+        'Node.js (JavaScript)',
+        '.NET (C#)',
+        'Machine Learning (AI/ML)'
+    ];
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -234,6 +244,29 @@ const Projects = () => {
                     Real-world applications built with modern technologies and best practices
                 </motion.p>
 
+                {/* Filter Buttons */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                    className="flex flex-nowrap justify-start lg:justify-center gap-3 mb-16 max-w-7xl mx-auto overflow-x-auto pb-4 scrollbar-hide"
+                >
+                    {categories.map((category, idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => setActiveFilter(category)}
+                            className={`whitespace-nowrap px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border flex-shrink-0 ${
+                                activeFilter === category
+                                    ? 'bg-gradient-to-r from-[var(--accent-cyan)] to-[var(--accent-violet)] text-white border-transparent shadow-[0_0_15px_rgba(0,240,255,0.3)]'
+                                    : 'glass text-[var(--text-secondary)] border-white/10 hover:border-[var(--accent-cyan)] hover:text-white'
+                            }`}
+                        >
+                            {category}
+                        </button>
+                    ))}
+                </motion.div>
+
                 {/* Projects Grid */}
                 {loading ? (
                     <div className="flex justify-center items-center h-64">
@@ -241,9 +274,25 @@ const Projects = () => {
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                        {projects.map((project, index) => (
-                            <ProjectCard key={index} project={project} index={index} />
-                        ))}
+                        {projects
+                            // Simple filter check: if 'All', show all, otherwise check if any tech in techStack matches the active filter broadly
+                            .filter(project => {
+                                if (activeFilter === 'All') return true;
+                                const stackString = project.techStack?.join(' ').toLowerCase() || '';
+                                const filterLower = activeFilter.toLowerCase();
+                                
+                                // Basic matching logic based on the names given
+                                if (filterLower.includes('django') || filterLower.includes('python')) return stackString.includes('django') || stackString.includes('python');
+                                if (filterLower.includes('spring boot') || filterLower.includes('java')) return stackString.includes('spring boot') || stackString.includes('java') || stackString.includes('springboot');
+                                if (filterLower.includes('node.js') || filterLower.includes('javascript')) return stackString.includes('node') || stackString.includes('express') || stackString.includes('react');
+                                if (filterLower.includes('.net') || filterLower.includes('c#')) return stackString.includes('net') || stackString.includes('c#');
+                                if (filterLower.includes('machine learning')) return stackString.includes('ml') || stackString.includes('ai') || stackString.includes('python') || stackString.includes('tensorflow') || stackString.includes('pytorch');
+                                
+                                return true;
+                            })
+                            .map((project, index) => (
+                                <ProjectCard key={index} project={project} index={index} />
+                            ))}
                     </div>
                 )}
 

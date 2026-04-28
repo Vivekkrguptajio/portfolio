@@ -17,11 +17,27 @@ const EditProject = () => {
         title: '',
         description: '',
         image: '',
-        techStack: '',
         liveLink: '',
         githubLink: '',
         isFeatured: false
     });
+
+    const CATEGORIES = [
+        'Django (Python Backend)',
+        'Spring Boot (Java)',
+        'Node.js (JavaScript)',
+        '.NET (C#)',
+        'Machine Learning (AI/ML)'
+    ];
+
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [customSkills, setCustomSkills] = useState('');
+
+    const toggleCategory = (cat) => {
+        setSelectedCategories(prev =>
+            prev.includes(cat) ? prev.filter(c => c !== cat) : [...prev, cat]
+        );
+    };
 
     useEffect(() => {
         const fetchProject = async () => {
@@ -37,11 +53,27 @@ const EditProject = () => {
                     const data = await response.json();
                     const project = data.find(p => p._id === id);
                     if (project) {
+                        // Split techStack into categories and custom skills
+                        const techArr = Array.isArray(project.techStack) ? project.techStack : (project.techStack || '').split(',').map(s => s.trim()).filter(Boolean);
+                        
+                        const selected = [];
+                        const custom = [];
+                        
+                        techArr.forEach(tech => {
+                            if (CATEGORIES.includes(tech)) {
+                                selected.push(tech);
+                            } else {
+                                custom.push(tech);
+                            }
+                        });
+
+                        setSelectedCategories(selected);
+                        setCustomSkills(custom.join(', '));
+
                         setFormData({
                             title: project.title,
                             description: project.description,
                             image: project.image,
-                            techStack: Array.isArray(project.techStack) ? project.techStack.join(', ') : project.techStack,
                             liveLink: project.liveLink || '',
                             githubLink: project.githubLink || '',
                             isFeatured: project.isFeatured || false
@@ -89,7 +121,10 @@ const EditProject = () => {
             const submitData = new FormData();
             submitData.append('title', formData.title);
             submitData.append('description', formData.description);
-            submitData.append('techStack', formData.techStack);
+            // Combine selected categories + custom skills into techStack
+            const customArr = customSkills.split(',').map(s => s.trim()).filter(Boolean);
+            const allTech = [...selectedCategories, ...customArr];
+            submitData.append('techStack', allTech.join(', '));
             submitData.append('liveLink', formData.liveLink);
             submitData.append('githubLink', formData.githubLink);
             submitData.append('isFeatured', formData.isFeatured);
@@ -227,14 +262,31 @@ const EditProject = () => {
 
                         {/* Tech Stack */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Tech Stack (comma separated) *</label>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Project Category</label>
+                            <div className="flex flex-wrap gap-2 mb-4">
+                                {CATEGORIES.map(cat => (
+                                    <button
+                                        type="button"
+                                        key={cat}
+                                        onClick={() => toggleCategory(cat)}
+                                        className={`px-3 py-1.5 text-xs rounded-full border font-medium transition-all duration-200 ${
+                                            selectedCategories.includes(cat)
+                                                ? 'bg-purple-600 text-white border-purple-600 shadow-md'
+                                                : 'bg-transparent text-gray-600 dark:text-gray-400 border-gray-300 dark:border-white/20 hover:border-purple-400 hover:text-purple-600 dark:hover:text-purple-400'
+                                        }`}
+                                    >
+                                        {selectedCategories.includes(cat) ? '✓ ' : '+ '}{cat}
+                                    </button>
+                                ))}
+                            </div>
+
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Custom Skills <span className="text-gray-400 font-normal">(comma separated)</span></label>
                             <input
                                 type="text"
-                                name="techStack"
-                                required
-                                value={formData.techStack}
-                                onChange={handleChange}
+                                value={customSkills}
+                                onChange={e => setCustomSkills(e.target.value)}
                                 className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-white/5 border border-gray-300 dark:border-white/10 text-gray-900 dark:text-white focus:outline-none focus:border-purple-500 transition-colors"
+                                placeholder="React, MongoDB, TailwindCSS..."
                             />
                         </div>
 
