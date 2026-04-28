@@ -102,7 +102,7 @@ const AddProject = () => {
     };
 
     return (
-        <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-[#050614] transition-colors duration-300">
+        <div className="min-h-[100dvh] pt-24 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-[#050614] transition-colors duration-300">
             <div className="max-w-2xl mx-auto">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                     <button

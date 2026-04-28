@@ -207,7 +207,7 @@ const Projects = () => {
     }, []);
 
     return (
-        <section id="projects" className="min-h-screen py-24 px-4 sm:px-6 lg:px-8" style={{ background: 'var(--bg-secondary)' }}>
+        <section id="projects" className="min-h-[100dvh] py-24 px-4 sm:px-6 lg:px-8" style={{ background: 'var(--bg-secondary)' }}>
             <div className="max-w-7xl mx-auto">
                 {/* Section Label */}
                 <motion.div

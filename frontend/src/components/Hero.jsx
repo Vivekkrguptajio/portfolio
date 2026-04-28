@@ -98,7 +98,7 @@ const Hero = () => {
     const { badge, heading, subHeading, description, buttons } = heroData;
 
     return (
-        <section className="relative min-h-screen flex items-center overflow-hidden" style={{ background: 'linear-gradient(to bottom, #020617, #000000)' }}>
+        <section className="relative min-h-[100dvh] flex items-center overflow-hidden" style={{ background: 'linear-gradient(to bottom, #020617, #000000)' }}>
             {/* Full-hero starfield + shooting stars */}
             <StarfieldBackground />
 
