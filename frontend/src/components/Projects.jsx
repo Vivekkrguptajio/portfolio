@@ -275,14 +275,31 @@ const Projects = () => {
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                         {projects
-                            // Strict filter check: match exactly with the predefined category strings
+                            // Flexible filter check: match exact string, or relevant keywords
                             .filter(project => {
                                 if (activeFilter === 'All') return true;
+                                if (!project.techStack || !Array.isArray(project.techStack)) return false;
                                 
-                                // project.techStack is an array of strings. 
-                                // We check if the exact activeFilter string is present in the array.
-                                if (!project.techStack) return false;
-                                return project.techStack.includes(activeFilter);
+                                return project.techStack.some(tech => {
+                                    const t = tech.toLowerCase();
+                                    if (activeFilter === 'Django (Python Backend)') {
+                                        return t.includes('django') || t.includes('python');
+                                    }
+                                    if (activeFilter === 'Spring Boot (Java)') {
+                                        return t.includes('spring') || t.includes('java');
+                                    }
+                                    if (activeFilter === 'Node.js (JavaScript)') {
+                                        return t.includes('node') || t.includes('javascript') || t.includes('express');
+                                    }
+                                    if (activeFilter === '.NET (C#)') {
+                                        return t.includes('.net') || t.includes('c#') || t.includes('c sharp');
+                                    }
+                                    if (activeFilter === 'Machine Learning (AI/ML)') {
+                                        return t.includes('machine learning') || t.includes('ml') || t.includes('ai') || t.includes('deep learning') || t.includes('python');
+                                    }
+                                    // Fallback
+                                    return t === activeFilter.toLowerCase() || t.includes(activeFilter.toLowerCase());
+                                });
                             })
                             .map((project, index) => (
                                 <ProjectCard key={index} project={project} index={index} />

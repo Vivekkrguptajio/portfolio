@@ -199,32 +199,5 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
 
-    // Temporary Migration: Clear predefined categories from all projects
-    // This allows the user to re-select them using the new toggle UI.
-    (async () => {
-        const CATEGORIES_TO_CLEAR = [
-            'Django (Python Backend)',
-            'Spring Boot (Java)',
-            'Node.js (JavaScript)',
-            '.NET (C#)',
-            'Machine Learning (AI/ML)'
-        ];
-        try {
-            const projects = await Project.find();
-            let count = 0;
-            for (let project of projects) {
-                const originalLength = project.techStack.length;
-                project.techStack = project.techStack.filter(tech => !CATEGORIES_TO_CLEAR.includes(tech));
-                if (project.techStack.length !== originalLength) {
-                    await project.save();
-                    count++;
-                }
-            }
-            if (count > 0) {
-                console.log(`✅ Migration: Removed categories from ${count} projects.`);
-            }
-        } catch (err) {
-            console.error('❌ Migration Error:', err);
-        }
-    })();
+
 });
