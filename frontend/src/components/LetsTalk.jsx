@@ -21,7 +21,7 @@ const LetsTalk = () => {
         setSubmitStatus(null);
 
         try {
-            // Send email using EmailJS v4 syntax
+            // Send email using EmailJS sendForm method
             const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
             const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
             const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
@@ -34,16 +34,11 @@ const LetsTalk = () => {
                 return;
             }
 
-            await emailjs.send(
+            // Using sendForm is the most robust method for React forms
+            await emailjs.sendForm(
                 serviceId,
                 templateId,
-                {
-                    from_name: formData.name,
-                    to_name: 'Vivek Kumar Gupta', // Your name
-                    from_email: formData.email,
-                    to_email: 'your_email@example.com', // Your email
-                    message: formData.message,
-                },
+                formRef.current,
                 {
                     publicKey: publicKey,
                 }
@@ -56,6 +51,9 @@ const LetsTalk = () => {
             setTimeout(() => setSubmitStatus(null), 5000);
         } catch (error) {
             console.error('Error sending email:', error);
+            // EmailJS often returns the error message in error.text
+            const errorMessage = error?.text || error?.message || 'Unknown error occurred';
+            alert(`EmailJS Error: ${errorMessage}`);
             setSubmitStatus('error');
             
             // Hide error message after 5 seconds
