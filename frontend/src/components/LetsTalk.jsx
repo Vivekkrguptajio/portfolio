@@ -8,8 +8,8 @@ import { contactInfo } from '../data/contactData';
 const LetsTalk = () => {
     const formRef = useRef();
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
+        user_name: '',
+        user_email: '',
         message: ''
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -45,7 +45,7 @@ const LetsTalk = () => {
             );
 
             setSubmitStatus('success');
-            setFormData({ name: '', email: '', message: '' }); // Clear form
+            setFormData({ user_name: '', user_email: '', message: '' }); // Clear form
             
             // Hide success message after 5 seconds
             setTimeout(() => setSubmitStatus(null), 5000);
@@ -179,8 +179,8 @@ const LetsTalk = () => {
                                     <input
                                         type="text"
                                         id="name"
-                                        name="name"
-                                        value={formData.name}
+                                        name="user_name"
+                                        value={formData.user_name}
                                         onChange={handleChange}
                                         placeholder="John Doe"
                                         className="w-full px-4 py-3 rounded-xl text-sm focus:outline-none transition-all duration-300 neu-inset focus:shadow-[0_0_0_2px_var(--accent-cyan)]"
@@ -197,8 +197,8 @@ const LetsTalk = () => {
                                     <input
                                         type="email"
                                         id="email"
-                                        name="email"
-                                        value={formData.email}
+                                        name="user_email"
+                                        value={formData.user_email}
                                         onChange={handleChange}
                                         placeholder="john@example.com"
                                         className="w-full px-4 py-3 rounded-xl text-sm focus:outline-none transition-all duration-300 neu-inset focus:shadow-[0_0_0_2px_var(--accent-cyan)]"
