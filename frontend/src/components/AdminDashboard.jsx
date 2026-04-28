@@ -49,7 +49,7 @@ const AdminDashboard = () => {
     return (
         <div className="min-h-screen pt-24 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-[#050614] transition-colors duration-300">
             <div className="max-w-6xl mx-auto">
-                <div className="flex justify-between items-center mb-8">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
                     <button
                         onClick={() => navigate('/')}
                         className="flex items-center text-gray-600 dark:text-gray-400 hover:text-purple-600 transition-colors"
@@ -57,64 +57,66 @@ const AdminDashboard = () => {
                         <ArrowLeft size={20} className="mr-2" />
                         Back to Portfolio
                     </button>
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Admin Dashboard</h1>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white text-center sm:text-left w-full sm:w-auto">Admin Dashboard</h1>
                     <button
                         onClick={() => navigate('/add/projects')}
-                        className="flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                        className="flex items-center justify-center w-full sm:w-auto px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
                     >
                         <Plus size={20} className="mr-2" />
                         Add New Project
                     </button>
                 </div>
 
-                <div className="bg-white dark:bg-[#0a0a1a] rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-white/5">
-                    <table className="w-full text-left border-collapse">
-                        <thead className="bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-300 uppercase text-xs font-semibold">
-                            <tr>
-                                <th className="p-4">Image</th>
-                                <th className="p-4">Title</th>
-                                <th className="p-4">Tech Stack</th>
-                                <th className="p-4">Featured</th>
-                                <th className="p-4 text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-200 dark:divide-white/5">
-                            {projects.map(project => (
-                                <tr key={project._id} className="hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
-                                    <td className="p-4">
-                                        <img src={project.image} alt={project.title} className="w-16 h-12 object-cover rounded" />
-                                    </td>
-                                    <td className="p-4 font-medium text-gray-900 dark:text-white">{project.title}</td>
-                                    <td className="p-4 text-sm text-gray-500 dark:text-gray-400">
-                                        {Array.isArray(project.techStack) ? project.techStack.join(', ') : project.techStack}
-                                    </td>
-                                    <td className="p-4">
-                                        {project.isFeatured ? (
-                                            <span className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Featured</span>
-                                        ) : (
-                                            <span className="text-gray-400 text-xs">-</span>
-                                        )}
-                                    </td>
-                                    <td className="p-4 text-right space-x-2">
-                                        <button
-                                            onClick={() => navigate(`/edit/project/${project._id}`)}
-                                            className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
-                                            title="Edit"
-                                        >
-                                            <Edit2 size={18} />
-                                        </button>
-                                        <button
-                                            onClick={() => handleDelete(project._id)}
-                                            className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
-                                            title="Delete"
-                                        >
-                                            <Trash2 size={18} />
-                                        </button>
-                                    </td>
+                <div className="bg-white dark:bg-[#0a0a1a] rounded-xl shadow-lg border border-gray-200 dark:border-white/5">
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left border-collapse min-w-[700px]">
+                            <thead className="bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-300 uppercase text-xs font-semibold">
+                                <tr>
+                                    <th className="p-4">Image</th>
+                                    <th className="p-4">Title</th>
+                                    <th className="p-4">Tech Stack</th>
+                                    <th className="p-4">Featured</th>
+                                    <th className="p-4 text-right">Actions</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="divide-y divide-gray-200 dark:divide-white/5">
+                                {projects.map(project => (
+                                    <tr key={project._id} className="hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+                                        <td className="p-4">
+                                            <img src={project.image} alt={project.title} className="w-16 h-12 object-cover rounded" />
+                                        </td>
+                                        <td className="p-4 font-medium text-gray-900 dark:text-white">{project.title}</td>
+                                        <td className="p-4 text-sm text-gray-500 dark:text-gray-400">
+                                            {Array.isArray(project.techStack) ? project.techStack.join(', ') : project.techStack}
+                                        </td>
+                                        <td className="p-4">
+                                            {project.isFeatured ? (
+                                                <span className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Featured</span>
+                                            ) : (
+                                                <span className="text-gray-400 text-xs">-</span>
+                                            )}
+                                        </td>
+                                        <td className="p-4 text-right space-x-2">
+                                            <button
+                                                onClick={() => navigate(`/edit/project/${project._id}`)}
+                                                className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
+                                                title="Edit"
+                                            >
+                                                <Edit2 size={18} />
+                                            </button>
+                                            <button
+                                                onClick={() => handleDelete(project._id)}
+                                                className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                                                title="Delete"
+                                            >
+                                                <Trash2 size={18} />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                     {projects.length === 0 && (
                         <div className="text-center p-8 text-gray-500 dark:text-gray-400">
                             No projects found. Add one to get started!
