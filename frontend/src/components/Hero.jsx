@@ -192,8 +192,8 @@ const Hero = () => {
 
                     {/* Right: Solar System 3D Scene */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.85 }}
-                        animate={{ opacity: 1, scale: 1 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
                         className="flex-1 w-full overflow-hidden rounded-xl"
                         style={{ height: 'clamp(350px, 50vw, 600px)', maxWidth: '700px' }}

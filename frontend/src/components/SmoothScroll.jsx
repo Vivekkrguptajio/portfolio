@@ -5,6 +5,11 @@ const SmoothScroll = ({ children }) => {
     const lenisRef = useRef(null);
 
     useEffect(() => {
+        // Disable Lenis on mobile to prevent layout bugs with address bar and native momentum scrolling
+        if (window.innerWidth < 768) {
+            return;
+        }
+
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
