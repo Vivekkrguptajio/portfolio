@@ -38,7 +38,7 @@ const Navbar = () => {
                             ))}
 
                             <a
-                                href="#contact"
+                                href="#letstalk"
                                 className="px-5 py-2 rounded-full text-sm font-medium text-white transition-all duration-300 hover:scale-105 hover:-translate-y-0.5"
                                 style={{
                                     background: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-violet))',
@@ -126,7 +126,7 @@ const Navbar = () => {
                                     </motion.a>
                                 ))}
                                 <a
-                                    href="#contact"
+                                    href="#letstalk"
                                     onClick={() => setIsOpen(false)}
                                     className="block w-full text-center mt-4 text-white px-5 py-3 rounded-xl font-medium transition-all"
                                     style={{
