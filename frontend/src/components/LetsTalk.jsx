@@ -1,19 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Send } from 'lucide-react';
+import { Mail, MapPin, Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 import { contactInfo } from '../data/contactData';
 
 const LetsTalk = () => {
+    const formRef = useRef();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         message: ''
     });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState(null); // 'success' or 'error'
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
+        setIsSubmitting(true);
+        setSubmitStatus(null);
+
+        try {
+            // Send email using EmailJS
+            // Replace these with your actual Service ID, Template ID, and Public Key in .env
+            await emailjs.send(
+                import.meta.env.VITE_EMAILJS_SERVICE_ID,
+                import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+                {
+                    from_name: formData.name,
+                    to_name: 'Vivek Kumar Gupta', // Your name
+                    from_email: formData.email,
+                    to_email: 'your_email@example.com', // Your email
+                    message: formData.message,
+                },
+                import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+            );
+
+            setSubmitStatus('success');
+            setFormData({ name: '', email: '', message: '' }); // Clear form
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => setSubmitStatus(null), 5000);
+        } catch (error) {
+            console.error('Error sending email:', error);
+            setSubmitStatus('error');
+            
+            // Hide error message after 5 seconds
+            setTimeout(() => setSubmitStatus(null), 5000);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const handleChange = (e) => {
@@ -122,7 +158,7 @@ const LetsTalk = () => {
                         transition={{ duration: 0.6, delay: 0.3 }}
                         className="lg:col-span-2"
                     >
-                        <form onSubmit={handleSubmit} className="space-y-6 p-8 rounded-2xl glass-strong neon-border h-full">
+                        <form ref={formRef} onSubmit={handleSubmit} className="space-y-6 p-8 rounded-2xl glass-strong neon-border h-full">
                             <div className="grid md:grid-cols-2 gap-6">
                                 {/* Name */}
                                 <div>
@@ -182,16 +218,38 @@ const LetsTalk = () => {
                             {/* Submit Button */}
                             <motion.button
                                 type="submit"
+                                disabled={isSubmitting}
                                 whileHover={{ y: -2, scale: 1.01 }}
                                 whileTap={{ scale: 0.98 }}
-                                className="w-full px-6 py-3.5 rounded-xl font-semibold text-white flex items-center justify-center gap-2 group transition-all duration-300"
-                                style={{
+                                className={`w-full px-6 py-3.5 rounded-xl font-semibold text-white flex items-center justify-center gap-2 transition-all duration-300 ${
+                                    submitStatus === 'success' ? 'bg-green-500' : submitStatus === 'error' ? 'bg-red-500' : ''
+                                }`}
+                                style={!submitStatus ? {
                                     background: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-violet))',
                                     boxShadow: '0 0 30px rgba(0, 240, 255, 0.15)',
-                                }}
+                                } : {}}
                             >
-                                Send Message
-                                <Send className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                                {isSubmitting ? (
+                                    <>
+                                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                        Sending...
+                                    </>
+                                ) : submitStatus === 'success' ? (
+                                    <>
+                                        <CheckCircle2 className="w-5 h-5" />
+                                        Message Sent Successfully!
+                                    </>
+                                ) : submitStatus === 'error' ? (
+                                    <>
+                                        <AlertCircle className="w-5 h-5" />
+                                        Failed to Send. Try Again.
+                                    </>
+                                ) : (
+                                    <>
+                                        Send Message
+                                        <Send className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                                    </>
+                                )}
                             </motion.button>
                         </form>
                     </motion.div>
