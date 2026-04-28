@@ -21,11 +21,22 @@ const LetsTalk = () => {
         setSubmitStatus(null);
 
         try {
-            // Send email using EmailJS
-            // Replace these with your actual Service ID, Template ID, and Public Key in .env
+            // Send email using EmailJS v4 syntax
+            const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+            const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+            const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+            if (!serviceId || !templateId || !publicKey) {
+                console.error("EmailJS environment variables are missing! Did you restart Vite?");
+                setSubmitStatus('error');
+                setTimeout(() => setSubmitStatus(null), 5000);
+                setIsSubmitting(false);
+                return;
+            }
+
             await emailjs.send(
-                import.meta.env.VITE_EMAILJS_SERVICE_ID,
-                import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+                serviceId,
+                templateId,
                 {
                     from_name: formData.name,
                     to_name: 'Vivek Kumar Gupta', // Your name
@@ -33,7 +44,9 @@ const LetsTalk = () => {
                     to_email: 'your_email@example.com', // Your email
                     message: formData.message,
                 },
-                import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+                {
+                    publicKey: publicKey,
+                }
             );
 
             setSubmitStatus('success');
