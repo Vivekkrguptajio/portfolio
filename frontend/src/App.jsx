@@ -32,7 +32,7 @@ function App() {
   return (
     <Router>
       <CustomCursor />
-      <div className="min-h-[100dvh]" style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
+      <div className="min-h-[100dvh] w-full overflow-x-hidden" style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/add/projects" element={<AddProject />} />
