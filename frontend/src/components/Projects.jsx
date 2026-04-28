@@ -245,29 +245,27 @@ const Projects = () => {
                 </motion.p>
 
                 {/* Filter Buttons */}
-                <div className="-mx-4 px-4 sm:mx-0 sm:px-0">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: 0.3 }}
-                        className="flex flex-nowrap justify-start lg:justify-center gap-3 mb-16 max-w-7xl mx-auto overflow-x-auto pb-4 scrollbar-hide snap-x"
-                    >
-                        {categories.map((category, idx) => (
-                            <button
-                                key={idx}
-                                onClick={() => setActiveFilter(category)}
-                                className={`whitespace-nowrap px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border flex-shrink-0 snap-start ${
-                                    activeFilter === category
-                                        ? 'bg-gradient-to-r from-[var(--accent-cyan)] to-[var(--accent-violet)] text-white border-transparent shadow-[0_0_15px_rgba(0,240,255,0.3)]'
-                                        : 'glass text-[var(--text-secondary)] border-white/10 hover:border-[var(--accent-cyan)] hover:text-white'
-                                }`}
-                            >
-                                {category}
-                            </button>
-                        ))}
-                    </motion.div>
-                </div>
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                    className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-16 max-w-4xl mx-auto"
+                >
+                    {categories.map((category, idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => setActiveFilter(category)}
+                            className={`whitespace-nowrap px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 border ${
+                                activeFilter === category
+                                    ? 'bg-gradient-to-r from-[var(--accent-cyan)] to-[var(--accent-violet)] text-white border-transparent shadow-[0_0_15px_rgba(0,240,255,0.3)]'
+                                    : 'glass text-[var(--text-secondary)] border-white/10 hover:border-[var(--accent-cyan)] hover:text-white'
+                            }`}
+                        >
+                            {category}
+                        </button>
+                    ))}
+                </motion.div>
 
                 {/* Projects Grid */}
                 {loading ? (
