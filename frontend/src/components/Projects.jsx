@@ -40,51 +40,37 @@ const ProjectCard = ({ project, index }) => {
                 onMouseMove={handleMouseMove}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={handleMouseLeave}
-                className="relative group"
+                className="relative group block"
                 style={{
                     perspective: '1000px',
-                    transformStyle: 'preserve-3d',
                 }}
             >
                 <div
                     className="rounded-2xl overflow-hidden transition-all duration-300 neon-border"
                     style={{
-                        transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg) ${isHovered ? 'translateY(-12px)' : 'translateY(0)'}`,
-                        transformStyle: 'preserve-3d',
+                        transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg) ${isHovered ? 'translateY(-8px)' : 'translateY(0)'}`,
                         transition: isHovered ? 'transform 0.1s ease-out' : 'transform 0.4s ease-out',
                         background: 'var(--bg-secondary)',
                         border: `1px solid ${isHovered ? 'rgba(0, 240, 255, 0.15)' : 'var(--border-subtle)'}`,
                         boxShadow: isHovered
-                            ? '0 30px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 240, 255, 0.08)'
+                            ? '0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 240, 255, 0.05)'
                             : '0 10px 30px rgba(0, 0, 0, 0.3)',
                     }}
                 >
-                    {/* Layer 0: Image (pushed back) */}
-                    <div
-                        className="h-48 overflow-hidden relative"
-                        style={{
-                            transform: isHovered ? 'translateZ(-20px) scale(1.05)' : 'translateZ(0)',
-                            transition: 'transform 0.4s ease-out',
-                        }}
-                    >
+                    {/* Image */}
+                    <div className="h-48 overflow-hidden relative">
                         <img
                             src={project.img}
                             alt={project.title}
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-secondary)] via-transparent to-transparent opacity-80" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-secondary)] via-transparent to-transparent opacity-80 pointer-events-none" />
                     </div>
 
-                    {/* Layer 1-3: Content (pushed forward) */}
-                    <div className="p-5 relative">
-                        {/* Layer 2: Title (pops out) */}
-                        <div
-                            className="flex items-start justify-between mb-4"
-                            style={{
-                                transform: isHovered ? 'translateZ(40px)' : 'translateZ(0)',
-                                transition: 'transform 0.4s ease-out',
-                            }}
-                        >
+                    {/* Content */}
+                    <div className="p-5 relative z-10">
+                        {/* Title & Links */}
+                        <div className="flex items-start justify-between mb-4">
                             <h3
                                 className="text-xl font-bold transition-colors duration-300"
                                 style={{
@@ -94,52 +80,48 @@ const ProjectCard = ({ project, index }) => {
                             >
                                 {project.title}
                             </h3>
-                            <div className="flex gap-2">
-                                <a
-                                    href={project.github}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="p-2 rounded-lg transition-all duration-300 hover:scale-110"
-                                    style={{ background: 'rgba(255,255,255,0.05)' }}
-                                    aria-label="GitHub"
-                                    title="View Code"
-                                >
-                                    <Github className="w-5 h-5" style={{ color: 'var(--text-secondary)' }} />
-                                </a>
-                                <a
-                                    href={project.live}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="p-2 rounded-lg transition-all duration-300 hover:scale-110 glow-cyan"
-                                    style={{ background: 'rgba(0, 240, 255, 0.1)' }}
-                                    aria-label="Live Demo"
-                                    title="Live Demo"
-                                >
-                                    <ExternalLink className="w-5 h-5" style={{ color: 'var(--accent-cyan)' }} />
-                                </a>
+                            <div className="flex gap-2 relative z-50">
+                                {project.github && project.github !== '#' && (
+                                    <a
+                                        href={project.github}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="p-2 rounded-lg transition-all duration-300 hover:scale-110 cursor-pointer block"
+                                        style={{ background: 'rgba(255,255,255,0.05)' }}
+                                        aria-label="GitHub"
+                                        title="View Code"
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
+                                        <Github className="w-5 h-5" style={{ color: 'var(--text-secondary)' }} />
+                                    </a>
+                                )}
+                                {project.live && project.live !== '#' && (
+                                    <a
+                                        href={project.live}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="p-2 rounded-lg transition-all duration-300 hover:scale-110 glow-cyan cursor-pointer block"
+                                        style={{ background: 'rgba(0, 240, 255, 0.1)' }}
+                                        aria-label="Live Demo"
+                                        title="Live Demo"
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
+                                        <ExternalLink className="w-5 h-5" style={{ color: 'var(--accent-cyan)' }} />
+                                    </a>
+                                )}
                             </div>
                         </div>
 
                         {/* Description */}
                         <p
                             className="text-sm mb-6 leading-relaxed line-clamp-3"
-                            style={{
-                                color: 'var(--text-muted)',
-                                transform: isHovered ? 'translateZ(25px)' : 'translateZ(0)',
-                                transition: 'transform 0.4s ease-out',
-                            }}
+                            style={{ color: 'var(--text-muted)' }}
                         >
                             {project.description}
                         </p>
 
-                        {/* Layer 3: Tech pills (float above) */}
-                        <div
-                            className="flex flex-wrap gap-2"
-                            style={{
-                                transform: isHovered ? 'translateZ(60px)' : 'translateZ(0)',
-                                transition: 'transform 0.4s ease-out',
-                            }}
-                        >
+                        {/* Tech pills */}
+                        <div className="flex flex-wrap gap-2">
                             {project.techStack.map((tech, idx) => (
                                 <span
                                     key={idx}
@@ -183,13 +165,20 @@ const Projects = () => {
                 if (response.ok) {
                     const data = await response.json();
                     if (data.length > 0) {
+                        const ensureUrl = (url) => {
+                            if (!url) return '';
+                            url = url.trim();
+                            if (url === '#' || url === '') return '';
+                            if (!/^https?:\/\//i.test(url)) return `https://${url}`;
+                            return url;
+                        };
                         const formattedProjects = data.map(project => ({
                             title: project.title,
                             description: project.description,
                             techStack: project.techStack,
                             img: project.image,
-                            github: project.githubLink || '#',
-                            live: project.liveLink || '#'
+                            github: ensureUrl(project.githubLink),
+                            live: ensureUrl(project.liveLink)
                         }));
                         setProjects(formattedProjects);
                     }

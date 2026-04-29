@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Send, CheckCircle2, AlertCircle } from 'lucide-react';
-import emailjs from '@emailjs/browser';
 import { contactInfo } from '../data/contactData';
 
 const LetsTalk = () => {
@@ -21,45 +20,34 @@ const LetsTalk = () => {
         setSubmitStatus(null);
 
         try {
-            // Send email using EmailJS sendForm method
-            const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-            const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-            const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+            // Using FormSubmit.co - no template needed!
+            const response = await fetch(`https://formsubmit.co/ajax/${contactInfo.email}`, {
+                method: "POST",
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: formData.user_name,
+                    email: formData.user_email,
+                    message: formData.message,
+                    _subject: "New Contact Form Submission from Portfolio!"
+                })
+            });
 
-            if (!serviceId || !templateId || !publicKey) {
-                console.error("EmailJS environment variables are missing! Did you restart Vite?");
+            if (response.ok) {
+                setSubmitStatus('success');
+                setFormData({ user_name: '', user_email: '', message: '' }); // Clear form
+            } else {
                 setSubmitStatus('error');
-                setTimeout(() => setSubmitStatus(null), 5000);
-                setIsSubmitting(false);
-                return;
             }
-
-            // Using sendForm is the most robust method for React forms
-            await emailjs.sendForm(
-                serviceId,
-                templateId,
-                formRef.current,
-                {
-                    publicKey: publicKey,
-                }
-            );
-
-            setSubmitStatus('success');
-            setFormData({ user_name: '', user_email: '', message: '' }); // Clear form
-            
-            // Hide success message after 5 seconds
-            setTimeout(() => setSubmitStatus(null), 5000);
         } catch (error) {
             console.error('Error sending email:', error);
-            // EmailJS often returns the error message in error.text
-            const errorMessage = error?.text || error?.message || 'Unknown error occurred';
-            alert(`EmailJS Error: ${errorMessage}`);
             setSubmitStatus('error');
-            
-            // Hide error message after 5 seconds
-            setTimeout(() => setSubmitStatus(null), 5000);
         } finally {
             setIsSubmitting(false);
+            // Hide message after 5 seconds
+            setTimeout(() => setSubmitStatus(null), 5000);
         }
     };
 
