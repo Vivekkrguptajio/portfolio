@@ -34,19 +34,20 @@ const ProjectCard = ({ project, index }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
+            className="h-full"
         >
             <div
                 ref={cardRef}
                 onMouseMove={handleMouseMove}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={handleMouseLeave}
-                className="relative group block"
+                className="relative group block h-full"
                 style={{
                     perspective: '1000px',
                 }}
             >
                 <div
-                    className="rounded-2xl overflow-hidden transition-all duration-300 neon-border"
+                    className="rounded-2xl overflow-hidden transition-all duration-300 neon-border h-full flex flex-col"
                     style={{
                         transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg) ${isHovered ? 'translateY(-8px)' : 'translateY(0)'}`,
                         transition: isHovered ? 'transform 0.1s ease-out' : 'transform 0.4s ease-out',
@@ -58,7 +59,7 @@ const ProjectCard = ({ project, index }) => {
                     }}
                 >
                     {/* Image */}
-                    <div className="h-48 overflow-hidden relative">
+                    <div className="h-48 overflow-hidden relative shrink-0">
                         <img
                             src={project.img}
                             alt={project.title}
@@ -68,7 +69,7 @@ const ProjectCard = ({ project, index }) => {
                     </div>
 
                     {/* Content */}
-                    <div className="p-5 relative z-10">
+                    <div className="p-5 relative z-10 flex flex-col flex-grow">
                         {/* Title & Links */}
                         <div className="flex items-start justify-between mb-4">
                             <h3
@@ -80,7 +81,7 @@ const ProjectCard = ({ project, index }) => {
                             >
                                 {project.title}
                             </h3>
-                            <div className="flex gap-2 relative z-50">
+                            <div className="flex gap-2 relative z-50 shrink-0 ml-4">
                                 {project.github && project.github !== '#' && (
                                     <a
                                         href={project.github}
@@ -121,7 +122,7 @@ const ProjectCard = ({ project, index }) => {
                         </p>
 
                         {/* Tech pills */}
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-2 mt-auto">
                             {project.techStack.map((tech, idx) => (
                                 <span
                                     key={idx}
