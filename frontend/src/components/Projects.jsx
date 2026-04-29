@@ -51,10 +51,10 @@ const ProjectCard = ({ project, index }) => {
                         transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg) ${isHovered ? 'translateY(-8px)' : 'translateY(0)'}`,
                         transition: isHovered ? 'transform 0.1s ease-out' : 'transform 0.4s ease-out',
                         background: 'var(--bg-secondary)',
-                        border: `1px solid ${isHovered ? 'rgba(0, 240, 255, 0.15)' : 'var(--border-subtle)'}`,
+                        border: `1px solid ${isHovered ? 'rgba(0, 240, 255, 0.5)' : 'rgba(0, 240, 255, 0.2)'}`,
                         boxShadow: isHovered
-                            ? '0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 240, 255, 0.05)'
-                            : '0 10px 30px rgba(0, 0, 0, 0.3)',
+                            ? '0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 240, 255, 0.3), inset 0 0 10px rgba(0, 240, 255, 0.1)'
+                            : '0 10px 30px rgba(0, 0, 0, 0.3), 0 0 8px rgba(0, 240, 255, 0.15)',
                     }}
                 >
                     {/* Image */}

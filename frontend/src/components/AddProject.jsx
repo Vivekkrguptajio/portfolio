@@ -21,6 +21,7 @@ const AddProject = () => {
     });
 
     const CATEGORIES = [
+        'Android App',
         'Django (Python Backend)',
         'Spring Boot (Java)',
         'Node.js (JavaScript)',
