@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Github, ExternalLink } from 'lucide-react';
 import API_BASE_URL from '../config';
+import { projects as staticProjects } from '../data/projectsData';
 
 /* ─── 3D Parallax Card ─── */
 const ProjectCard = ({ project, index }) => {
@@ -63,6 +64,8 @@ const ProjectCard = ({ project, index }) => {
                         <img
                             src={project.img}
                             alt={project.title}
+                            loading="lazy"
+                            decoding="async"
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-secondary)] via-transparent to-transparent opacity-80 pointer-events-none" />
@@ -146,8 +149,8 @@ const ProjectCard = ({ project, index }) => {
 
 /* ─── Projects Section ─── */
 const Projects = () => {
-    const [projects, setProjects] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [projects, setProjects] = useState(staticProjects);
+    const [loading, setLoading] = useState(false);
     const [activeFilter, setActiveFilter] = useState('All');
 
     const categories = [
@@ -259,24 +262,18 @@ const Projects = () => {
                 </motion.div>
 
                 {/* Projects Grid */}
-                {loading ? (
-                    <div className="flex justify-center items-center h-64">
-                        <div className="w-12 h-12 rounded-full border-2 border-t-transparent animate-spin" style={{ borderColor: 'var(--accent-cyan)', borderTopColor: 'transparent' }} />
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                        {projects
-                            .filter(project => {
-                                if (activeFilter === 'All') return true;
-                                if (!project.techStack || !Array.isArray(project.techStack)) return false;
-                                
-                                return project.techStack.includes(activeFilter);
-                            })
-                            .map((project, index) => (
-                                <ProjectCard key={index} project={project} index={index} />
-                            ))}
-                    </div>
-                )}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                    {projects
+                        .filter(project => {
+                            if (activeFilter === 'All') return true;
+                            if (!project.techStack || !Array.isArray(project.techStack)) return false;
+                            
+                            return project.techStack.includes(activeFilter);
+                        })
+                        .map((project, index) => (
+                            <ProjectCard key={index} project={project} index={index} />
+                        ))}
+                </div>
 
                 {/* View All Button */}
                 <motion.div
