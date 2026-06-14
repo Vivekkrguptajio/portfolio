@@ -3,7 +3,7 @@ import React, { Suspense, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Download, ExternalLink, ArrowDown } from 'lucide-react';
 import { heroData } from '../data/heroData';
-import HeroScene from './HeroScene';
+const HeroScene = React.lazy(() => import('./HeroScene'));
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
